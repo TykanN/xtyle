@@ -55,7 +55,6 @@ class XtyleConfig {
   factory XtyleConfig.korean({
     required String fontFamilyKor,
     String? defaultFontFamily,
-    bool showDebugLog = false,
   }) =>
       XtyleConfig(
         mapper: {XtyleRegExp.korean: fontFamilyKor},

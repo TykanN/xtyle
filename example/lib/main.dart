@@ -6,7 +6,6 @@ void main() {
     configuration: XtyleConfig.korean(
       fontFamilyKor: 'SpoqaHanSansNeo',
       defaultFontFamily: 'DancingScript',
-      showDebugLog: true,
     ),
   );
   runApp(const MyApp());

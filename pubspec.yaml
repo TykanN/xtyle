@@ -1,6 +1,6 @@
 name: xtyle
 description: Xtyle provides mutiligual-styled Text and TextEditingController. You can use diffrenet fontFamily for each languages.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/TykanN/xtyle
 
 environment:
