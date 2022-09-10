@@ -1,2 +1,5 @@
-* linguist-vendored
-*.dart linguist-vendored=false
+example/android/** linguist-detectable=false
+example/ios/** linguist-detectable=false
+example/web/** linguist-detectable=false
+example/macos/** linguist-detectable=false
+example/windows/** linguist-detectable=false
