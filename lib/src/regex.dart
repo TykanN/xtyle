@@ -9,6 +9,12 @@ abstract class XtyleRegExp {
   /// English
   static final RegExp english = RegExp(r'[a-zA-Z]');
 
+  /// English
+  static final RegExp englishUpperCase = RegExp(r'[A-Z]');
+
+  /// English
+  static final RegExp englishLowerCase = RegExp(r'[a-z]');
+
   /// Digit
   static final RegExp digit = RegExp(r'[0-9]');
 

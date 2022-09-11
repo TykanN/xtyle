@@ -10,7 +10,7 @@ export 'src/text_controller.dart';
 
 /// Global Xtyle Instance.
 // ignore: non_constant_identifier_names
-final XtyleInterface Xtyle = XtyleImpl();
+final XtyleInterface Xtyle = _XtyleImpl();
 
 /// XtyleInterface
 abstract class XtyleInterface {
@@ -20,10 +20,8 @@ abstract class XtyleInterface {
 }
 
 /// Implement of XtyleInterface
-class XtyleImpl implements XtyleInterface {
-  static final XtyleImpl _singleton = XtyleImpl._internal();
-  XtyleImpl._internal();
-  factory XtyleImpl() => _singleton;
+class _XtyleImpl implements XtyleInterface {
+  _XtyleImpl();
 
   @override
   late XtyleConfig config;

@@ -24,6 +24,6 @@ class XtyleTextController extends TextEditingController {
           ),
         )
         .toList();
-    return TextSpan(children: spans, style: const TextStyle(height: 1.0));
+    return TextSpan(children: spans, style: const TextStyle());
   }
 }
