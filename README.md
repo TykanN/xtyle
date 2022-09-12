@@ -52,7 +52,7 @@ XtyleText(
 
 ## Supported Lauguages for xtyle-mapping
 * Korean
-* English
+* English (+Upper/Lower case)
 * Digit
 * AlphaNumeric (English + Digit)
 * Emoji
