@@ -78,7 +78,7 @@ class XtyleText extends StatelessWidget {
   /// [style]을 제외한 다른 모든 파라미터는 [Text] 위젯과 동일하게 사용됩니다.
   const XtyleText(
     this.text, {
-    super.key,
+    Key? key,
     this.style,
     this.strutStyle,
     this.textAlign,
@@ -97,7 +97,7 @@ class XtyleText extends StatelessWidget {
           'A non-null String must be provided to a XtyleText widget',
         ),
         span = null,
-        super();
+        super(key: key);
 
   /// Create a multilingual-styled text widget.
   ///
@@ -106,7 +106,7 @@ class XtyleText extends StatelessWidget {
   /// All other parameters except [style] are used the same as the Text widget.
   const XtyleText.rich(
     this.span, {
-    super.key,
+    Key? key,
     this.style,
     this.strutStyle,
     this.textAlign,
@@ -125,7 +125,7 @@ class XtyleText extends StatelessWidget {
           'A non-null TextSpan must be provided to a XtyleText.rich widget.',
         ),
         text = null,
-        super();
+        super(key: key);
 
   // Generate span.
   List<InlineSpan> _build() {
