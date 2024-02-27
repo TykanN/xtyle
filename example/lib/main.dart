@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Text(
                       '👇 Type something 👇',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 24),
                     TextFormField(
@@ -80,34 +80,32 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: _TextWidget(
-                        label: 'Flutter Text Widget',
-                        child: Text(
-                          textEditingController.text,
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+              Row(
+                children: [
+                  Expanded(
+                    child: _TextWidget(
+                      label: 'Flutter Text Widget',
+                      child: Text(
+                        textEditingController.text,
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
-                    const SizedBox(width: 24),
-                    Expanded(
-                      child: _TextWidget(
-                        label: 'XtyleText Widget',
-                        child: XtyleText(
-                          textEditingController.text,
-                          maxLines: 5,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
+                  ),
+                  const SizedBox(width: 24),
+                  Expanded(
+                    child: _TextWidget(
+                      label: 'XtyleText Widget',
+                      child: XtyleText(
+                        textEditingController.text,
+                        maxLines: 5,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

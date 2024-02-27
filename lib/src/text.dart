@@ -43,7 +43,12 @@ class XtyleText extends StatelessWidget {
   /// How visual overflow should be handled.
   final TextOverflow? overflow;
 
+  /// {@macro flutter.painting.textPainter.textScaler}
+  final TextScaler? textScaler;
+
   /// The number of font pixels for each logical pixel.
+  @Deprecated('Use textScaler instead. '
+      'Use of textScaleFactor was deprecated in preparation for the upcoming nonlinear text scaling support.')
   final double? textScaleFactor;
 
   /// An optional maximum number of lines for the text to span, wrapping if necessary.
@@ -86,6 +91,7 @@ class XtyleText extends StatelessWidget {
     this.locale,
     this.softWrap,
     this.overflow,
+    this.textScaler,
     this.textScaleFactor,
     this.maxLines,
     this.semanticsLabel,
@@ -114,6 +120,7 @@ class XtyleText extends StatelessWidget {
     this.locale,
     this.softWrap,
     this.overflow,
+    this.textScaler,
     this.textScaleFactor,
     this.maxLines,
     this.semanticsLabel,
@@ -127,16 +134,18 @@ class XtyleText extends StatelessWidget {
         text = null,
         super(key: key);
 
+  TextStyle get defaultTextStyle => style ?? const TextStyle();
+
   // Generate span.
   List<InlineSpan> _build() {
     if (span != null) {
-      return _buildSpanFromRich(TextSpan(children: [span!]));
+      return _buildSpanFromRich(TextSpan(children: [span!]),
+          baseTextStyle: defaultTextStyle);
     }
     return _buildSpan(text!);
   }
 
   // Default text
-  @protected
   List<InlineSpan> _buildSpan(String source) {
     List<String> list = XtyleUtil.chopStringWithRegex(source, Xtyle.regExp);
 
@@ -155,31 +164,42 @@ class XtyleText extends StatelessWidget {
   }
 
   /// Rich text
-  @protected
-  List<InlineSpan> _buildSpanFromRich(TextSpan textSpan) {
-    if (textSpan.children == null) {
-      return [TextSpan(text: textSpan.text)];
-    }
-    List<InlineSpan> result = [];
-    for (InlineSpan span in textSpan.children!) {
-      List<String> choppedString =
-          XtyleUtil.chopStringWithRegex(span.toPlainText(), Xtyle.regExp);
-      List<InlineSpan> styledString = choppedString
-          .map(
-            (text) => TextSpan(
-              text: text,
-              style: XtyleUtil.textStyle(
+  List<InlineSpan> _buildSpanFromRich(InlineSpan inlineSpan,
+      {required TextStyle baseTextStyle}) {
+    if (inlineSpan is TextSpan) {
+      if (inlineSpan.children == null) {
+        List<String> choppedString = XtyleUtil.chopStringWithRegex(
+            inlineSpan.toPlainText(), Xtyle.regExp);
+        List<InlineSpan> styledString = choppedString
+            .map(
+              (text) => TextSpan(
                 text: text,
-                baseStyle:
-                    span.style ?? textSpan.style ?? style ?? const TextStyle(),
-                xtyleConfig: Xtyle.config,
+                style: XtyleUtil.textStyle(
+                  text: text,
+                  baseStyle: baseTextStyle.merge(inlineSpan.style),
+                  xtyleConfig: Xtyle.config,
+                ),
               ),
-            ),
-          )
-          .toList();
-      result.addAll(styledString);
+            )
+            .toList();
+
+        return styledString;
+      }
+      List<InlineSpan> result = [
+        TextSpan(
+          text: inlineSpan.text,
+          style: inlineSpan.style,
+        )
+      ];
+      for (InlineSpan span in inlineSpan.children!) {
+        final recursiveSpan = _buildSpanFromRich(span,
+            baseTextStyle: baseTextStyle.merge(inlineSpan.style));
+        result.addAll(recursiveSpan);
+      }
+      return result;
+    } else {
+      return [inlineSpan];
     }
-    return result;
   }
 
   @override
@@ -194,6 +214,7 @@ class XtyleText extends StatelessWidget {
       locale: locale,
       softWrap: softWrap,
       overflow: overflow,
+      textScaler: textScaler,
       textScaleFactor: textScaleFactor,
       maxLines: maxLines,
       semanticsLabel: semanticsLabel,
